@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
 <head>
     <title>Simple CRM - Customer Management made Simple</title>
 
@@ -20,7 +21,7 @@
     <h1 class="pb-2 border-bottom row">
         <span class="col-sm-6 pb-4">Customer: <span th:text="${customerInstance.id}"></span> </span>
         <span class="col-sm-6 text-sm-right pb-4">
-            <form action="/customer/delete" method="post" onsubmit="return confirm('Are you sure?');">
+            <form action="#" th:action="@{/customer/delete}" method="post" onsubmit="return confirm('Are you sure?');">
                 <input type="hidden" name="id" th:value="${customerInstance.id}"/>
                 <button class="btn btn-danger btn-outline-danger d-block d-sm-inline-block">Delete Customer</button>
             </form>
@@ -30,7 +31,7 @@
 
     <div class="mt-5 card card-body bg-light">
 
-        <form action="/customer/update" th:object="${customerInstance}" class="form" method="post">
+        <form action="#" th:action="@{/customer/update}" th:object="${customerInstance}" class="form" method="post">
 
             <div class="alert alert-danger" th:if="${! #fields.errors('all').isEmpty()}">
                 <li th:each="e : ${#fields.detailedErrors()}" th:class="${e.global}? globalerr : fielderr">

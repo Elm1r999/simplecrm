@@ -34,6 +34,20 @@ public class Customer {
     @Column
     String phoneNumber;
 
+    /*
+    public Customer(){}
+
+    public Customer(Long id, @NotBlank String firstName, @NotBlank String lastName, String emailAddress, String address, String city, String country, String phoneNumber) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.address = address;
+        this.city = city;
+        this.country = country;
+        this.phoneNumber = phoneNumber;
+   }*/
+
     public Long getId() {
         return id;
     }

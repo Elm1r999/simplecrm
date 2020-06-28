@@ -37,7 +37,6 @@ public class CustomerWebController {
         this.customerService = customerService;
     }
 
-
     @GetMapping
     public String index() {
         return "/customer/index.html";
@@ -62,9 +61,7 @@ public class CustomerWebController {
         Sort.Order sortOrder = new Sort.Order((sortDir.equals("desc") ? Sort.Direction.DESC : Sort.Direction.ASC), sortName);
         Sort sort = Sort.by(sortOrder);
 
-        Pageable pageRequest = PageRequest.of(currentPage,
-                length,
-                sort);
+        Pageable pageRequest = PageRequest.of(currentPage, length, sort);
 
         String queryString = (String) (params.get("search[value]"));
 
@@ -73,7 +70,8 @@ public class CustomerWebController {
         long totalRecords = customers.getTotalElements();
 
         List<Map<String, Object>> cells = new ArrayList<>();
-        customers.forEach(customer -> {
+
+        for (Customer customer : customers) {
             Map<String, Object> cellData = new HashMap<>();
             cellData.put("id", customer.getId());
             cellData.put("firstName", customer.getFirstName());
@@ -83,10 +81,9 @@ public class CustomerWebController {
             cellData.put("country", customer.getCountry());
             cellData.put("phoneNumber", customer.getPhoneNumber());
             cells.add(cellData);
-        });
+        }
 
         Map<String, Object> jsonMap = new HashMap<>();
-
         jsonMap.put("draw", draw);
         jsonMap.put("recordsTotal", totalRecords);
         jsonMap.put("recordsFiltered", totalRecords);
@@ -158,7 +155,7 @@ public class CustomerWebController {
     @PostMapping("/delete")
     public String delete(@RequestParam Long id, RedirectAttributes atts) {
         Customer customerInstance = customerRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Customer Not Found:" + id));
+                                                      .orElseThrow(() -> new IllegalArgumentException("Customer Not Found:" + id));
 
         customerRepository.delete(customerInstance);
 
